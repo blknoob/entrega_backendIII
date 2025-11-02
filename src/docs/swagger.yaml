@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: AdoptMe API
+  version: 1.0.0
+  description: API para el sistema de adopción de mascotas
+
+paths:
+  /api/adoptions:
+    get:
+      tags:
+        - Adoptions
+      summary: Obtiene todas las adopciones
+      responses:
+        "200":
+          description: Lista de adopciones
+        "404":
+          description: No se encontraron adopciones
+
+  /api/adoptions/{uid}/{pid}:
+    post:
+      tags:
+        - Adoptions
+      summary: Crea una nueva adopción
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Adopción creada exitosamente
+        "404":
+          description: No se encontró la mascota o el usuario
+
+  /api/sessions/register:
+    post:
+      tags:
+        - Sessions
+      summary: Registra un nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreate"
+      responses:
+        "200":
+          description: Usuario registrado exitosamente
+        "400":
+          description: Error en el registro del usuario
+
+  /api/sessions/login:
+    post:
+      tags:
+        - Sessions
+      summary: Inicia sesión
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login exitoso
+        "400":
+          description: Error en el inicio de sesión
+
+  /api/mocks/generateData:
+    post:
+      tags:
+        - Mocks
+      summary: Genera y guarda datos de prueba
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: integer
+                pets:
+                  type: integer
+      responses:
+        "200":
+          description: Datos generados y guardados exitosamente
+        "500":
+          description: Error en la generación de datos

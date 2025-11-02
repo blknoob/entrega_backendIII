@@ -1,0 +1,106 @@
+paths:
+  /api/pets:
+    get:
+      tags:
+        - Pets
+      summary: Obtiene todas las mascotas
+      responses:
+        "200":
+          description: Lista de mascotas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pet"
+
+        "404":
+          description: No se encontraron mascotas
+
+    post:
+      tags:
+        - Pets
+      summary: Crea una nueva mascota
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PetCreate"
+      responses:
+        "200":
+          description: Mascota creada exitosamente
+        "400":
+          description: Error en la creación de la mascota
+
+  /api/pets/{pid}:
+    put:
+      tags:
+        - Pets
+      summary: Actualiza una mascota
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PetCreate"
+      responses:
+        "200":
+          description: Mascota actualizada exitosamente
+        "400":
+          description: Error en la actualización de la mascota
+    delete:
+      tags:
+        - Pets
+      summary: Elimina una mascota
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Mascota eliminada exitosamente
+        "404":
+          description: Mascota no encontrada
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        specie:
+          type: string
+        birthDate:
+          type: string
+        adopted:
+          type: boolean
+        owner:
+          type: string
+        image:
+          type: string
+
+    PetCreate:
+      type: object
+      required:
+        - name
+        - specie
+        - birthDate
+      properties:
+        name:
+          type: string
+        specie:
+          type: string
+        birthDate:
+          type: string

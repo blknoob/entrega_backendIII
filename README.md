@@ -31,10 +31,9 @@ npm test
 Swagger en `http://localhost:8080/api-docs`
 
 ## Docker
-Imagen oficial: **https://hub.docker.com/r/carlosurga/adoptme-app**
+https://hub.docker.com/r/carlosurga/adoptme-app
 
-### Ejecutar imagen publicada
-Descargar y ejecutar la imagen desde Docker Hub:
+### Ejecutar imagen 
 ```bash
 docker run -d --name adoptme \
 	-p 8080:8080 \
@@ -44,7 +43,6 @@ docker run -d --name adoptme \
 La aplicación estará disponible en `http://localhost:8080`
 
 ### Construir y ejecutar localmente
-Construir la imagen desde el código fuente:
 ```bash
 docker build -t adoptme-app:local .
 docker run -d --name adoptme-local \
